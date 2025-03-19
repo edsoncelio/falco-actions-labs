@@ -62,8 +62,10 @@ runs:
         if [ "$VERBOSE" = "true" ]; then
           echo "Loading default CICD rules"
         fi
-        
-        MOUNT_CICD_DEFAULT_RULES="-v $GITHUB_WORKSPACE/rules/falco_cicd_rules.yaml:/etc/falco/rules.d/falco_cicd_rules.yaml"
+        ls -la
+        rm -rf /etc/falco/falco_rules.local.yaml || true
+        MOUNT_CICD_DEFAULT_RULES="-v $GITHUB_WORKSPACE/rules/falco_cicd_rules.yaml:/etc/falco/falco_rules.local.yaml"
+        ls -la /etc/falco
       fi
 
  
