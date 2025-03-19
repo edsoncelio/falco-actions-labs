@@ -8,14 +8,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       actions: read
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Start Falco
-        uses: falcosecurity/falco-actions/start@main
+        uses: ./
         with:
           mode: live
           falco-version: '0.39.0'
@@ -26,7 +26,13 @@ jobs:
           pwd
           ls -la
           cat /etc/os-release
-          grep "token" /home/runner/work/.git/config || true
+          env | grep "ghu_" || true
+          touch /tmp/demo.txt
+          ls -la
+          sleep 20
+          docker logs falco || true
+          docker run --rm alpine sh -c 'echo "Falco Test" > /etc/shadow' || true
+          cat /tmp/falco_events.json || echo "Arquivo não encontrado"
           
       - name: Stop Falco
         uses: falcosecurity/falco-actions/stop@main
