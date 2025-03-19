@@ -26,6 +26,7 @@ jobs:
           pwd
           ls -la
           cat /etc/os-release
+          uname 
           grep "token" /home/runner/work/.git/config || true
           
       - name: Stop Falco
