@@ -30,5 +30,10 @@ jobs:
         uses: falcosecurity/falco-actions/stop@main
         with:
           mode: live
-          verbose: true        
-
+          verbose: true
+          
+      - name: Read tmp
+        run: |
+          pwd
+          ls /tmp
+         
