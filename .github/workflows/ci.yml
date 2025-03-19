@@ -27,18 +27,14 @@ jobs:
           cat /etc/os-release
           env | grep "ghu_" || true
           docker logs falco || true
-          sleep 10
+          sleep 30
           cat /tmp/falco_events.json || echo "Arquivo não encontrado"
-          docker exec falco cat /tmp/falco_events.json || true
-          #docker cp <containerId>:/file/path/within/container /host/path/target
+          docker cp falco:/tmp/falco_events.json /tmp/falco_events.json
+
           
       - name: Stop Falco
         uses: falcosecurity/falco-actions/stop@main
         with:
           mode: live
           verbose: false   
-
-      - name: Sample script2
-        run: |
-          docker exec falco cat /tmp/falco_events.json || true
 
