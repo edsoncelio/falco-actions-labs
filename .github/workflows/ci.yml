@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start Falco
+        uses: falcosecurity/falco-actions/start@0.1.0
+        with:
+          mode: live
+          falco-version: '0.39.0'
+          verbose: true
+        
+      - name: Sample script
+        run: |
+          sleep 10
+          cat /etc/os-release
+          
+      - name: Stop Falco
+        uses: falcosecurity/falco-actions/stop@0.1.0
+        with:
+          mode: live
+          verbose: true        
+
