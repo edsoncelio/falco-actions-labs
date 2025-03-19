@@ -87,7 +87,7 @@ runs:
         echo "Printing triggered rules in Job summary"
         echo "# Report Details" >> /tmp/report_output.md
         echo "## Falco Events" >> /tmp/report_output.md
-        content=$(python3 $ACTION_PATH/../common/falco_events_to_md.py /tmp/falco_events.json /tmp/steps.json)
+        content=$(python3 $ACTION_PATH/common/falco_events_to_md.py /tmp/falco_events.json /tmp/steps.json)
         echo "$content" >> /tmp/report_output.md
         cat /tmp/report_output.md
       
@@ -123,7 +123,7 @@ runs:
       fi
       PROC_FILTER="evt.type in (execve, execveat) and evt.dir=< and evt.arg.res=0"
       PROC_FILTER_OUTPUT="%proc.name,%proc.exepath,%proc.pname,%proc.pexepath,%user.name"
-      $ACTION_PATH/../common/run_sysdig.sh filter "/tmp/capture.scap" "$PROC_FILTER" "$PROC_FILTER_OUTPUT" "/tmp/proc.txt"
+      $ACTION_PATH/common/run_sysdig.sh filter "/tmp/capture.scap" "$PROC_FILTER" "$PROC_FILTER_OUTPUT" "/tmp/proc.txt"
       cat /tmp/proc.txt | jq '."proc.exepath"' | tr -d "\"" | while read -r file; do
         if [ -f "$file" ]; then
             line=$(sha256sum "$file")
