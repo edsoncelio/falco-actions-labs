@@ -62,9 +62,11 @@ runs:
         if [ "$VERBOSE" = "true" ]; then
           echo "Loading default CICD rules"
         fi
-        MOUNT_CICD_DEFAULT_RULES="-v $GITHUB_WORKSPACE/rules/falco_rules.local.yaml:/etc/falco/rules.d/falco_cicd_rules.yaml"
+        
+        MOUNT_CICD_DEFAULT_RULES="-v $GITHUB_WORKSPACE/rules/falco_cicd_rules.yaml:/etc/falco/rules.d/falco_cicd_rules.yaml"
       fi
 
+ 
       docker run --rm -d \
         --name falco \
         --privileged \
