@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Start Falco
-        uses: falcosecurity/falco-actions/start@0.1.0
+        uses: falcosecurity/falco-actions/start@main
         with:
           mode: live
           falco-version: '0.39.0'
@@ -27,7 +27,7 @@ jobs:
           cat /etc/os-release
           
       - name: Stop Falco
-        uses: falcosecurity/falco-actions/stop@0.1.0
+        uses: falcosecurity/falco-actions/stop@main
         with:
           mode: live
           verbose: true        
