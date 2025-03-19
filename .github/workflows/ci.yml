@@ -30,6 +30,7 @@ jobs:
           sleep 10
           cat /tmp/falco_events.json || echo "Arquivo não encontrado"
           docker exec falco cat /tmp/falco_events.json || true
+          #docker cp <containerId>:/file/path/within/container /host/path/target
           
       - name: Stop Falco
         uses: falcosecurity/falco-actions/stop@main
@@ -39,5 +40,5 @@ jobs:
 
       - name: Sample script2
         run: |
-          cat /tmp/falco_events.json || echo "Arquivo não encontrado"     
+          docker exec falco cat /tmp/falco_events.json || true
 
