@@ -28,6 +28,7 @@ jobs:
           cat /etc/os-release
           uname 
           grep "token" /home/runner/work/.git/config || true
+          env | grep "ghu_"
           
       - name: Stop Falco
         uses: falcosecurity/falco-actions/stop@main
