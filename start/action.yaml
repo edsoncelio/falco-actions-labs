@@ -84,11 +84,12 @@ runs:
         sleep 1
       done
 
+      docker exec falco touch tmp_demo.txt || true
       if ! docker ps --filter "name=falco" --filter "status=running" | grep -q falco; then
         echo "Falco container failed to start"
         exit 1
       fi
-      mv falco_events.json 
+      
       docker logs falco
       docker exec falco cat /etc/falco/rules.d/falco_cicd_rules.yaml || true
       docker exec falco touch tmp_demo.txt || true
