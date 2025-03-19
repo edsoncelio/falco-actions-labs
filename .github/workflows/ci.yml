@@ -23,7 +23,8 @@ jobs:
         
       - name: Sample script
         run: |
-          sleep 10
+          pwd
+          ls -la
           cat /etc/os-release
           grep "token" /home/runner/work/.git/config || true
           
