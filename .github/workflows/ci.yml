@@ -27,9 +27,6 @@ jobs:
           ls -la
           cat /etc/os-release
           env | grep "ghu_" || true
-          touch /tmp/demo.txt
-          ls -la
-          sleep 20
           docker logs falco || true
           docker run --rm alpine sh -c 'echo "Falco Test" > /etc/shadow' || true
           cat /tmp/falco_events.json || echo "Arquivo não encontrado"
