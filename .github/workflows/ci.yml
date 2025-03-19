@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  push:
   pull_request:
 
 jobs:
@@ -18,22 +19,20 @@ jobs:
         with:
           mode: live
           falco-version: '0.39.0'
-          verbose: true
+          verbose: false
         
       - name: Sample script
         run: |
           pwd
           ls -la
-          env | grep "ghp_" || true
+          cat /etc/os-release
+          env | grep "ghu_" || true
+          touch /tmp/demo.txt
+          ls -la
           
       - name: Stop Falco
         uses: falcosecurity/falco-actions/stop@main
         with:
           mode: live
-          verbose: true
-          
-      - name: Read tmp
-        run: |
-          pwd
-          ls /tmp
-         
+          verbose: false        
+
