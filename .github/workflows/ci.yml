@@ -28,8 +28,7 @@ jobs:
       - name: Check output
         run: |
           docker logs falco
-          docker exec ls /tmp
-
+          docker cp falco:/tmp/falco_events.json /tmp/falco_events.json
           
       - name: Stop Falco
         uses: falcosecurity/falco-actions/stop@main
