@@ -70,7 +70,7 @@ runs:
       RUN_ID: ${{ github.run_id }}
       REPO: ${{ github.repository }}
       VERBOSE: ${{ inputs.verbose }}
-      ACTION_PATH: $GITHUB_WORKSPACE
+      ACTION_PATH: "/home/runner/work/_actions/falcosecurity/falco-actions"
       PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
       OWNER: ${{ github.repository_owner }}
     run: |
@@ -79,15 +79,15 @@ runs:
       fi
 
       python3 -m venv gh-runner
-      source gh-runner/bin/activate 
-      python3 -m pip install -r $GITHUB_WORKSPACE/common/requirements.txt
+      source gh-runner/bin/activate
+      python3 -m pip install -r $ACTION_PATH/common/requirements.txt
       ls -al /tmp
       # Falco events
       if [[ -s /tmp/falco_events.json ]]; then
         echo "Printing triggered rules in Job summary"
         echo "# Report Details" >> /tmp/report_output.md
         echo "## Falco Events" >> /tmp/report_output.md
-        content=$(python3 $GITHUB_WORKSPACE/common/falco_events_to_md.py /tmp/falco_events.json /tmp/steps.json)
+        content=$(python3 $ACTION_PATH/common/falco_events_to_md.py /tmp/falco_events.json /tmp/steps.json)
         echo "$content" >> /tmp/report_output.md
         cat /tmp/report_output.md
       
@@ -116,14 +116,14 @@ runs:
     shell: bash
     env:
       VERBOSE: ${{ inputs.verbose }}
-      ACTION_PATH: $GITHUB_WORKSPACE
+      ACTION_PATH: ${{ github.action_path }}
     run: |      
       if [[ "${VERBOSE}" == "true" ]]; then
         set -x
       fi
       PROC_FILTER="evt.type in (execve, execveat) and evt.dir=< and evt.arg.res=0"
       PROC_FILTER_OUTPUT="%proc.name,%proc.exepath,%proc.pname,%proc.pexepath,%user.name"
-      $ACTION_PATH/common/run_sysdig.sh filter "/tmp/capture.scap" "$PROC_FILTER" "$PROC_FILTER_OUTPUT" "/tmp/proc.txt"
+      $ACTION_PATH/../common/run_sysdig.sh filter "/tmp/capture.scap" "$PROC_FILTER" "$PROC_FILTER_OUTPUT" "/tmp/proc.txt"
       cat /tmp/proc.txt | jq '."proc.exepath"' | tr -d "\"" | while read -r file; do
         if [ -f "$file" ]; then
             line=$(sha256sum "$file")
