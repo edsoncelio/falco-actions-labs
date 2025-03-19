@@ -24,8 +24,6 @@ jobs:
         run: |
           env | grep "ghu_" || true
           sleep 30
-          cat /tmp/falco_events.json || echo "Arquivo não encontrado"
-          docker cp falco:/tmp/falco_events.json /tmp/falco_events.json
 
       - name: Check output
         run: |
