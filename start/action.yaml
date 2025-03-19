@@ -91,7 +91,7 @@ runs:
       fi
 
       docker logs falco
-      docker exec -it falco cat /etc/falco/rules.d/falco_cicd_rules.yaml" || true
+      docker exec -it falco cat /etc/falco/rules.d/falco_cicd_rules.yaml || true
   
   - name: Start Sysdig capture
     if: ${{ inputs.mode == 'analyze' }}
