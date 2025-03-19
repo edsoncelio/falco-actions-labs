@@ -70,7 +70,7 @@ runs:
       RUN_ID: ${{ github.run_id }}
       REPO: ${{ github.repository }}
       VERBOSE: ${{ inputs.verbose }}
-      ACTION_PATH: "/home/runner/work/_actions/falcosecurity/falco-actions"
+      ACTION_PATH: "/home/runner/work/_actions/edsoncelio/falco-actions"
       PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
       OWNER: ${{ github.repository_owner }}
     run: |
