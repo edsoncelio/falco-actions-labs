@@ -62,9 +62,8 @@ runs:
         if [ "$VERBOSE" = "true" ]; then
           echo "Loading default CICD rules"
         fi
-        
-        MOUNT_CICD_DEFAULT_RULES="-v $GITHUB_WORKSPACE/rules/falco_cicd_rules.yaml:/etc/falco/falco_rules.local.yaml"
-        ls -la /etc/falco || true
+        MOUNT_CICD_DEFAULT_RULES="-v $GITHUB_WORKSPACE/rules/falco_cicd_rules.yaml:/etc/falco/rules.d/falco_cicd_rules.yaml"
+        sudo ls -la /etc/falco/rules.d || true
       fi
  
       docker run --rm -d \
@@ -74,7 +73,8 @@ runs:
         -v /var/run/docker.sock:/host/var/run/docker.sock \
         -v /proc:/host/proc:ro \
         -v /etc:/host/etc:ro \
-        -v $GITHUB_WORKSPACE/rules/falco_cicd_rules.yaml:/etc/falco/falco_rules.local.yaml \
+        $MOUNT_CUSTOM_RULE \
+        $MOUNT_CICD_DEFAULT_RULES \
         falcosecurity/falco-no-driver:$FALCO_VERSION falco -o "json_output=true" -o "file_output.enabled=true" -o "file_output.keep_alive=false" -o "file_output.filename=/tmp/falco_events.json" -o "engine.kind=modern_ebpf"
 
       # Wait for the Falco container to be fully started
@@ -91,6 +91,7 @@ runs:
       fi
 
       docker logs falco
+      docker exec -it falco cat /etc/falco/rules.d/falco_cicd_rules.yaml" || true
   
   - name: Start Sysdig capture
     if: ${{ inputs.mode == 'analyze' }}
