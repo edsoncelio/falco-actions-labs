@@ -31,7 +31,7 @@ jobs:
           docker cp falco:/tmp/falco_events.json /tmp/falco_events.json
           
       - name: Stop Falco
-        uses: falcosecurity/falco-actions/stop@main
+        uses: ./stop/
         with:
           mode: live
           verbose: false   
