@@ -68,7 +68,7 @@ runs:
       docker run --rm -d \
         --name falco \
         --privileged \
-        -v /tmp:/tmp \
+        -v /tmp:/mnt/tmp \
         -v /var/run/docker.sock:/host/var/run/docker.sock \
         -v /proc:/host/proc:ro \
         -v /etc:/host/etc:ro \
@@ -89,7 +89,7 @@ runs:
         echo "Falco container failed to start"
         exit 1
       fi
-      
+
       docker logs falco
       docker exec falco cat /etc/falco/rules.d/falco_cicd_rules.yaml || true
       docker exec falco touch tmp_demo.txt || true
