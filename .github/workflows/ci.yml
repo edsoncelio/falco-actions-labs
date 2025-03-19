@@ -6,11 +6,8 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-    permissions:
-      contents: write
-      actions: read
-      pull-requests: write
-
+    permissions: write-all
+    
     steps:
       - uses: actions/checkout@v4
 
