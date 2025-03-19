@@ -96,7 +96,7 @@ runs:
           echo "Creating PR comment with triggered signatures"
           FILE_CONTENT=$(echo "$content" | sed 's/\\/\\\\/g' | sed ':a;N;$!ba;s/\n/\\n/g')
           curl -X POST \
-            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
             -d "{\"body\": \"***Falco Rules*** \\n\\n ${FILE_CONTENT} \\n\\n Find out more at https://github.com/$REPO/actions/runs/$RUN_ID\"}" \
             https://api.github.com/repos/$OWNER/$REPO/issues/$PULL_REQUEST_NUMBER/comments
