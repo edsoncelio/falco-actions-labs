@@ -28,7 +28,7 @@ jobs:
       - name: Check output
         run: |
           #docker cp falco:/tmp/falco_events.json /tmp/falco_events.json
-          docker exec falco ls /tmp/
+          docker exec falco find / -type f -name "falco_events.json" 2>/dev/null
 
           
       - name: Stop Falco
