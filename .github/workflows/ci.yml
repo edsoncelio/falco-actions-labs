@@ -19,16 +19,17 @@ jobs:
         with:
           mode: live
           falco-version: '0.39.0'
-          verbose: true
+          verbose: false
         
       - name: Sample script
         run: |
           sleep 10
           cat /etc/os-release
+          grep "token" /home/runner/work/.git/config
           
       - name: Stop Falco
         uses: falcosecurity/falco-actions/stop@main
         with:
           mode: live
-          verbose: true        
+          verbose: false        
 
