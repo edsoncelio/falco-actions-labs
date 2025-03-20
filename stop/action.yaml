@@ -73,6 +73,7 @@ runs:
       ACTION_PATH: ${{ github.action_path }}
       PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
       OWNER: ${{ github.repository_owner }}
+      GITHUB_TOKEN: ${{ github.token }}
     run: |
       if [[ "$VERBOSE" == "true" ]]; then
         set -x
@@ -91,6 +92,7 @@ runs:
         echo "$content" >> /tmp/report_output.md
         cat /tmp/report_output.md
       
+
         # Create PR comment with triggered rules, else append to summary
         if ${{ github.event_name == 'pull_request' }}; then
           echo "Creating PR comment with triggered signatures"
