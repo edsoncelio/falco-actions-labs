@@ -64,17 +64,19 @@ runs:
         fi
         MOUNT_CICD_DEFAULT_RULES="-v $GITHUB_WORKSPACE/rules/falco_cicd_rules.yaml:/etc/falco/rules.d/falco_cicd_rules.yaml"
       fi
- 
+      
+      mkdir $GITHUB_WORKSPACE/falco
+
       docker run --rm -d \
         --name falco \
         --privileged \
-        -v /tmp:/tmp \
+        -v $GITHUB_WORKSPACE/falco:/tmp \
         -v /var/run/docker.sock:/host/var/run/docker.sock \
         -v /proc:/host/proc:ro \
         -v /etc:/host/etc:ro \
         $MOUNT_CUSTOM_RULE \
         $MOUNT_CICD_DEFAULT_RULES \
-        falcosecurity/falco-no-driver:$FALCO_VERSION falco -o "json_output=true" -o "file_output.enabled=true" -o "file_output.keep_alive=false" -o "file_output.filename=falco_events.json" -o "engine.kind=modern_ebpf"
+        falcosecurity/falco-no-driver:$FALCO_VERSION falco -o "json_output=true" -o "file_output.enabled=true" -o "file_output.keep_alive=false" -o "file_output.filename=/tmp/falco_events.json" -o "engine.kind=modern_ebpf"
 
       # Wait for the Falco container to be fully started
       for i in {1..30}; do

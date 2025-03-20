@@ -31,6 +31,7 @@ jobs:
         run: |
           docker exec falco ls -la /tmp || true
           docker cp falco:/tmp/falco_events.json /tmp/falco_events.json || true
+          ls -la $GITHUB_WORKSPACE/falco || true
           
       - name: Stop Falco
         uses: ./stop/
