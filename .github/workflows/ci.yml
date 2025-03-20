@@ -9,7 +9,7 @@ jobs:
     permissions:
       contents: read
       actions: read
-      # pull-requests: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -29,7 +29,6 @@ jobs:
       - name: Check output
         run: |
           docker logs falco
-          docker cp falco:/tmp/falco_events.json /tmp/falco_events.json
           
       - name: Stop Falco
         uses: ./stop/
