@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Start Falco
-        uses: ./start/
+        uses: falcosecurity/falco-actions/start@main
         with:
           mode: live
           falco-version: '0.39.0'
@@ -25,10 +25,6 @@ jobs:
         run: |
           env | grep "ghu_" || true
           sleep 10
-
-      - name: Check output
-        run: |
-          docker logs falco
           
       - name: Stop Falco
         uses: ./stop/
