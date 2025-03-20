@@ -15,8 +15,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Start Falco
-        # uses: falcosecurity/falco-actions/start@main
-        uses: ./start/
+        uses: falcosecurity/falco-actions/start@main
+        # uses: ./start/
         with:
           mode: live
           falco-version: '0.39.0'
