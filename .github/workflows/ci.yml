@@ -28,6 +28,7 @@ jobs:
         
       - name: Copy results
         run: |
+          docker exec falco ls -la /tmp/tmp || true
           docker cp falco:/tmp/falco_events.json /tmp/falco_events.json || true
           
       - name: Stop Falco
