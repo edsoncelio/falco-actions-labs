@@ -30,7 +30,7 @@ jobs:
       - name: Copy results
         run: |
           docker cp falco:/tmp/falco_events.json /tmp/falco_events.json || true
-          docker exec falco ls -la $GITHUB_WORKSPACE/falco || true
+          docker exec falco ls -la /falco || true
           
       - name: Stop Falco
         uses: ./stop/
