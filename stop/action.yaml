@@ -101,7 +101,7 @@ runs:
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
             -d "{\"body\": \"***Falco Rules*** \\n\\n ${FILE_CONTENT} \\n\\n Find out more at https://github.com/$REPO/actions/runs/$RUN_ID\"}" \
-            https://api.github.com/repos/$OWNER/${REPO##*/}/issues/$PULL_REQUEST_NUMBER/comments
+            https://api.github.com/repos/$REPO/issues/$PULL_REQUEST_NUMBER/comments
         fi
         cat /tmp/report_output.md >> $GITHUB_STEP_SUMMARY
       fi
