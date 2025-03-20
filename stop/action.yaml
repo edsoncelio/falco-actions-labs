@@ -48,7 +48,7 @@ runs:
       fi
 
       echo "Retrieving details for run_id=$RUN_ID"
-      curl -s -H "Authorization: token $GITHUB_TOKEN" \
+      curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
         -H "Accept: application/vnd.github.v3+json" \
         https://api.github.com/repos/$REPO/actions/runs/$RUN_ID/jobs > jobs.json
       
@@ -98,7 +98,7 @@ runs:
           echo "Creating PR comment with triggered signatures"
           FILE_CONTENT=$(echo "$content" | sed 's/\\/\\\\/g' | sed ':a;N;$!ba;s/\n/\\n/g')
           curl -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
             -d "{\"body\": \"***Falco Rules*** \\n\\n ${FILE_CONTENT} \\n\\n Find out more at https://github.com/$REPO/actions/runs/$RUN_ID\"}" \
             https://api.github.com/repos/$OWNER/$REPO/issues/$PULL_REQUEST_NUMBER/comments
