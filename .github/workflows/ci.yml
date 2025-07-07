@@ -5,8 +5,8 @@ on:
 
 jobs:
   build:
-    # runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    #runs-on: self-hosted
     permissions:
       contents: read
       actions: read
@@ -19,7 +19,7 @@ jobs:
         uses: falcosecurity/falco-actions/start@main
         # uses: ./start/
         with:
-          mode: live
+          mode: analyze
           falco-version: '0.39.0'
           verbose: false
         
@@ -36,6 +36,23 @@ jobs:
       - name: Stop Falco
         uses: ./stop/
         with:
-          mode: live
-          verbose: false   
+          mode: analyze
+          verbose: false
+
+  analyze-foo:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    steps:
+    - name: Analyze
+      uses: falcosecurity/falco-actions/analyze@main
+      with:
+        falco-version: '0.39.0'
+        openai-user-prompt: "Pls add remediation steps"
+        openai-model: "gpt-3.5-turbo"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        VT_API_KEY: ${{ secrets.VT_API_KEY }}
 
