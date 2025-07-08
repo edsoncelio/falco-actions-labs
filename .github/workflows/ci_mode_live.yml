@@ -33,7 +33,7 @@ jobs:
           
       - name: Stop Falco
         uses: falcosecurity/falco-actions/stop@main
-        #uses: ./stop/
+        uses: ./stop/
         with:
           mode: live
           verbose: false
