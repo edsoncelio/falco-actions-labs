@@ -37,7 +37,7 @@ jobs:
           verbose: false
 
   analyze:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: build
     permissions:
       contents: read
