@@ -48,6 +48,8 @@ jobs:
       uses: ./analyze/
       with:
         falco-version: '0.39.0'
+        extract-dns: false
+        extract-hashes: false
         #openai-user-prompt: "Based on the results, add remediation steps, be succint and only for the critical threats."
         #openai-model: "gpt-3.5-turbo"
       env:
