@@ -27,19 +27,15 @@ jobs:
         run: |
           env | grep "ghu_" || true
           sleep 10
-        
-      - name: Copy results
-        run: |
-          docker cp falco:/tmp/falco_events.json /tmp/falco_events.json || true
-          docker exec falco ls -la /falco || true
           
       - name: Stop Falco
-        uses: ./stop/
+        uses: falcosecurity/falco-actions/stop@main
+        #uses: ./stop/
         with:
           mode: analyze
           verbose: false
 
-  analyze-foo:
+  analyze:
     runs-on: ubuntu-latest
     needs: build
     permissions:
@@ -50,7 +46,7 @@ jobs:
       uses: falcosecurity/falco-actions/analyze@main
       with:
         falco-version: '0.39.0'
-        openai-user-prompt: "Pls add remediation steps"
+        openai-user-prompt: "Based on the results, add remediation steps, be succint and only for the critical threats."
         openai-model: "gpt-3.5-turbo"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
