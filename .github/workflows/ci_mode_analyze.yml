@@ -44,7 +44,7 @@ jobs:
       actions: read
     steps:
     - name: Analyze
-      uses: falcosecurity/falco-actions/analyze@main
+      uses: ./analyze/
       with:
         falco-version: '0.39.0'
         openai-user-prompt: "Based on the results, add remediation steps, be succint and only for the critical threats."

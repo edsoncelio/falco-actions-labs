@@ -1,7 +1,7 @@
 name: Falco Mode Live
 
 on:
-  pull_request:
+  #pull_request:
   workflow_dispatch:
 
 jobs:
