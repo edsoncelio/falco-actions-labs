@@ -32,7 +32,7 @@ jobs:
           sleep 8
           
       - name: Stop Falco
-        uses: falcosecurity/falco-actions/stop@main
+        #uses: falcosecurity/falco-actions/stop@main
         uses: ./stop/
         with:
           mode: live
