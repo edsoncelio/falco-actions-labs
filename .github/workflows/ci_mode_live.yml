@@ -1,0 +1,45 @@
+name: Falco Mode Live
+
+on:
+  #pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, self-hosted]
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start Falco
+        #uses: falcosecurity/falco-actions/start@main
+        uses: ./start/
+        with:
+          mode: live
+          falco-version: '0.39.0'
+          verbose: false
+        
+      - name: Threats
+        run: |
+          env | grep "ghu_" || true
+          sleep 10
+
+      - name: Check events
+        run: |
+          ls -la /tmp
+          
+      - name: Stop Falco
+        #uses: falcosecurity/falco-actions/stop@main
+        uses: ./stop/
+        with:
+          mode: live
+          verbose: false
+
+

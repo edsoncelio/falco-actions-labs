@@ -1,0 +1,60 @@
+name: Falco Mode Analyze
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start Falco
+        #uses: falcosecurity/falco-actions/start@main
+        uses: ./start/
+        with:
+          mode: analyze
+          falco-version: '0.39.0'
+          verbose: true
+        
+      - name: Threats
+        run: |
+          env | grep "ghu_" || true
+          sleep 10
+
+
+      - name: Stop Falco
+        uses: falcosecurity/falco-actions/stop@main
+        #uses: ./stop/
+        with:
+          mode: analyze
+          verbose: false
+
+  analyze:
+    runs-on: self-hosted
+    needs: build
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+    steps:
+    - uses: actions/checkout@v4
+    - name: Analyze
+      uses: ./analyze/
+      with:
+        falco-version: '0.39.0'
+        extract-dns: false
+        extract-hashes: false
+        #openai-user-prompt: "Based on the results, add remediation steps, be succint and only for the critical threats."
+        #openai-model: "gpt-3.5-turbo"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        # VT_API_KEY: ${{ secrets.VT_API_KEY }}
+
