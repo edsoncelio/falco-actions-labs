@@ -1,7 +1,7 @@
 name: Falco Mode Analyze
 
 on:
-  #pull_request:
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
       - name: Threats
         run: |
           env | grep "ghu_" || true
-          sleep 8
+          sleep 10
 
 
       - name: Stop Falco
