@@ -51,6 +51,6 @@ jobs:
         openai-model: "gpt-3.5-turbo"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        VT_API_KEY: ${{ secrets.VT_API_KEY }}
+        # OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        # VT_API_KEY: ${{ secrets.VT_API_KEY }}
 
