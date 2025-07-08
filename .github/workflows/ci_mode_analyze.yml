@@ -26,7 +26,7 @@ jobs:
       - name: Threats
         run: |
           env | grep "ghu_" || true
-          sleep 10
+          sleep 8
 
 
       - name: Stop Falco
