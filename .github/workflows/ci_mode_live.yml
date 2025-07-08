@@ -20,7 +20,7 @@ jobs:
 
       - name: Start Falco
         uses: falcosecurity/falco-actions/start@main
-        # uses: ./start/
+        uses: ./start/
         with:
           mode: live
           falco-version: '0.39.0'
