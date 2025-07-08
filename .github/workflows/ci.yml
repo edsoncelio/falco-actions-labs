@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     #runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: igor-ubuntu-aws
     permissions:
       contents: read
       actions: read
@@ -26,7 +26,7 @@ jobs:
       - name: Threats
         run: |
           env | grep "ghu_" || true
-          sleep 5
+          sleep 8
           
       - name: Stop Falco
         uses: falcosecurity/falco-actions/stop@main
@@ -37,7 +37,7 @@ jobs:
 
   analyze:
     #runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: igor-ubuntu-aws
     needs: build
     permissions:
       contents: read
