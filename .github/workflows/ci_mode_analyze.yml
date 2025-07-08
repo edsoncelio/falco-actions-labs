@@ -31,11 +31,7 @@ jobs:
           env | grep "ghu_" || true
           sleep 8
 
-      - name: Copy results
-        run: |
-          docker cp falco:/tmp/falco_events.json /tmp/falco_events.json || true
-          docker exec falco ls -la /falco || true
-          
+
       - name: Stop Falco
         uses: falcosecurity/falco-actions/stop@main
         #uses: ./stop/
