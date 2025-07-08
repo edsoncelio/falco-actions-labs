@@ -42,13 +42,14 @@ jobs:
     permissions:
       contents: read
       actions: read
+      pull-requests: write
     steps:
     - name: Analyze
       uses: ./analyze/
       with:
         falco-version: '0.39.0'
-        openai-user-prompt: "Based on the results, add remediation steps, be succint and only for the critical threats."
-        openai-model: "gpt-3.5-turbo"
+        #openai-user-prompt: "Based on the results, add remediation steps, be succint and only for the critical threats."
+        #openai-model: "gpt-3.5-turbo"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
