@@ -6,10 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, self-hosted]
+    runs-on: self-hosted
     permissions:
       contents: read
       actions: read
